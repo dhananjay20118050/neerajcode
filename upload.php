@@ -166,16 +166,86 @@ if($rows == 1){
                     $citydes = "";
                     $statedes = "";
                     $cityname = strtoupper($j);
-                    $cityquery = "select * from city_data name where city_name != '$cityname'";
+                    $cityquery = "select * from city_data where city_name = '$cityname'";
                     
                     $cityresult = mysqli_query($conn,$cityquery);
                    
-                   if (mysqli_num_rows($cityresult)==0)
+                   if (mysqli_num_rows($cityresult)== 0)
                     {  
                        $citydes = "Please enter correct city";
                     }
-                    $statename = strtoupper($j);
-                    $statequery = "select * from hfc_state name where state_name != '$statename'";
+                    $enterstate = strtoupper($k);
+
+                    if(strtolower($enterstate) == strtolower('ANDAMAN AND NICOBAR') || strtolower($enterstate) == strtolower('ANDAMAN & NICOBAR') || strtolower($enterstate) == strtolower('ANDAMANNICOBAR') || strtolower($enterstate) == strtolower('ANDAMAN')){
+
+                $state = 'ANDAMAN & NICOBAR';
+
+            }
+            else if(strtolower($enterstate) == strtolower('JAMMU AND KASHMIR') || strtolower($enterstate) == strtolower('JAMMU & KASHMIR') || strtolower($enterstate) == strtolower('JAMMUKASHMIR') || strtolower($enterstate) == strtolower('JAMMU')){
+
+                $state = 'JAMMU & KASHMIR';
+
+            }
+            else if(strtolower($enterstate) == strtolower('DAMAN AND DIU') || strtolower($enterstate) == strtolower('DAMAN & DIU') || strtolower($enterstate) == strtolower('DAMANDIU') || strtolower($enterstate) == strtolower('DAMAN')){
+
+                $state = 'DAMAN & DIU';
+
+            }
+            else if(strtolower($enterstate) == strtolower('ARUNACHAL PRADESH') || strtolower($enterstate) == strtolower('ARUNACHALPRADESH')){
+
+                $state = 'ARUNACHAL PRADESH';
+
+            }
+            else if(strtolower($enterstate) == strtolower('DADRA NAGAR HAVELI') || strtolower($enterstate) == strtolower('DADRANAGARHAVELI') || strtolower($enterstate) == strtolower('DADRANAGAR HAVELI')){
+
+                $state = 'DADRA NAGAR HAVELI';
+
+            }
+            else if(strtolower($enterstate) == strtolower('HIMACHAL PRADESH') || strtolower($enterstate) == strtolower('HIMACHALPRADESH')){
+
+                $state = 'HIMACHAL PRADESH';
+
+            }
+            else if(strtolower($enterstate) == strtolower('MIG STATE CODE') || strtolower($enterstate) == strtolower('MIGSTATECODE') || strtolower($enterstate) == strtolower('MIGSTATE CODE')){
+
+                $state = 'MIG STATE CODE';
+
+            }
+            else if(strtolower($enterstate) == strtolower('NEW DELHI') || strtolower($enterstate) == strtolower('NEWDELHI')){
+
+                $state = 'NEW DELHI';
+
+            }
+            else if(strtolower($enterstate) == strtolower('GUJARAT GLASS LTD.') || strtolower($enterstate) == strtolower('GUJARATGLASSLTD.') || strtolower($enterstate) == strtolower('GUJARAT GLASS LTD') || strtolower($enterstate) == strtolower('GUJARATGLASS LTD.') || strtolower($enterstate) == strtolower('GUJARATGLASS LTD')){
+
+                $state = 'GUJARAT GLASS LTD.';
+
+            }
+            else if(strtolower($enterstate) == strtolower('TAMIL NADU') || strtolower($enterstate) == strtolower('TAMILNADU')){
+
+                $state = 'TAMIL NADU';
+
+                 
+
+            }
+            else if(strtolower($enterstate) == strtolower('UTTAR PRADESH') || strtolower($enterstate) == strtolower('UTTARPRADESH')){
+
+                $state = 'UTTAR PRADESH';
+
+            }
+            else if(strtolower($enterstate) == strtolower('WEST BENGAL') || strtolower($enterstate) == strtolower('WESTBENGAL')){
+
+                $state = 'WEST BENGAL';
+
+            }
+            else{
+                $state = str_replace(' ', '', $enterstate);
+            }
+
+
+
+
+                    $statequery = "select * from hfc_state where state_name = '$state'";
                    $stateresult = mysqli_query($conn,$statequery);
                   // print_r($stateresult);exit;
                    if (mysqli_num_rows($stateresult)==0)
@@ -191,7 +261,8 @@ if($rows == 1){
                     $result = mysqli_query($conn,$sql);
                     $appCount1++;
                        continue;
-                    }//else{
+                   }
+                    else{
 
                     $sql = "INSERT INTO `hfccustdata`(`TRNREFNO`, `BRCODE`, `SBCODE`, `BNKSRL`, `APPLNO`, `NAME`, `ADD1`, `ADD2`, `ADD3`, `CITY`, `STATE`, `PIN`, `TYPE`, `TENURE`, `CATE`, `FOLIO`, `EMPCODE`, `STATUS`, `AMOUNT`, ` PAYMODE`, `INSTNO`, `INSTDT`, `PANGIR1`, `DOB`, `NGNAME`, `BANKAC`, `BANKNM`, `BCITY`, `MICR`, `GNAME`, `GPAN`, `ACTYPE`, `RTGSCOD`, `NNAME`, `NADD1`, `NADD2`, `NADD3`, `NCITY`, `NPIN`, `ENCL`, `TELNO`, `JH1NAME`, `JH2NAME`, `JH1PAN`, `JH2PAN`, `JH1RELATION`, `JH2RELATION`, `HLDINGPATT`, `SUBTYPE`, `EMAILID`, `MOBILENO`, `IFSC`,`text1`,`text2`,`text3`,`text4`,`text5`,`text6`,`text7`,`text10`,filename) VALUES ('".$a."','".$b."','".$c."','".$d."','".$e."','".$f."','".$g."','".$h."','".$i."','".$j."','".$k."','".$l."','".$m."','".$n."','".$o."','".$p."','".$q."','".$r."','".$s."','".$t."','".$u."','".$v."','".$w."','".$dob."','".$y."','".$z."','".$a1."','".$b1."','".$c1."','".$d1."','".$e1."','".$f1."','".$g1."','".$h1."','".$i1."','".$j1."','".$k1."','".$l1."','".$m1."','".$n1."','".$o1."','".$p1."','".$q1."','".$r1."','".$s1."','".$t1."','".$u1."','".$v1."','".$w1."','".$x1."','".$y1."','".$z1."','".$a11."','".$acctnm."','".$a13."','".$a14."','".$a15."','".$a16."','".$a17."','".$a18."','".$newfile."')";
                 $result = mysqli_query($conn,$sql);
@@ -202,7 +273,7 @@ if($rows == 1){
                     $appCount++;
                 }
                 }
-            //}
+            }
 
             
             }
