@@ -149,7 +149,7 @@ function setDT1(){
 
 function setDT2(){
 
- var date = $("#date-filter").val();
+    var date = $("#date-filter").val();
     if(date == undefined){
         /* set date for complete tab */
         var today = new Date();
@@ -250,6 +250,12 @@ function afterDT2(){
     });
 }
 
+function afterDT6(){
+    $("#date-filter").change(function(){
+        setDT6();
+    });
+}
+
 function setDT3(){
 
      var date = $("#date-filter").val();
@@ -301,7 +307,7 @@ function setDT3(){
 
 function setDT6(){
 
-     var date = $("#date-filter").val();
+     var date = $("#date-filters").val();
     if(date == undefined){
         /* set date for complete tab */
         var today = new Date();
@@ -328,7 +334,7 @@ function setDT6(){
                     { data: "cityreason" },
                     { data: "statereason" }
                 ],
-        dom: '<"toolbar"lB<"#filters3">f>rt<"bottom"ip><"clear">',
+        dom: '<"toolbar"lB<"#filters6">f>rt<"bottom"ip><"clear">',
         buttons: ['csv'],
         lengthMenu: [[5, 10, 15, 20, 25, 50, 100, -1], [5, 10, 15, 20, 25, 50, 100, "All"]],
         pageLength: 10,
@@ -337,9 +343,14 @@ function setDT6(){
         scrollCollapse: true,
         initComplete: function () {
             $('.buttons-csv').html('<span class="glyphicon glyphicon-download-alt" data-toggle="tooltip" title="Download"/>');
+            $("#filters6").html('<div class="form-group"><input type="date" id="date-filters" class="form-control"></div>');
+            afterDT6();
+            if(date != ""){
+                $("#date-filters").val(date);
+            }
         },
         drawCallback: function( settings ) {
-            //afterDT3();
+            afterDT6();
         },
         language: { "lengthMenu": "Show _MENU_" },
         columnDefs: [
