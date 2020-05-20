@@ -17,6 +17,7 @@ $date = getWorkingOursByDate(date("Y-m-d"));
                             <li><a href="#t3" data-toggle="tab" class="dt-tabs">Error Logs</a></li>
                             <li><a href="#t4" data-toggle="tab" class="dt-tabs">Upload Data</a></li>
                             <li><a href="#t6" data-toggle="tab" class="dt-tabs">Upload Error</a></li>
+                            <li><a href="#t7" data-toggle="tab" class="dt-tabs">CIFID Created</a></li>
                                 
                         </ul>
                     </div>
@@ -94,6 +95,9 @@ $date = getWorkingOursByDate(date("Y-m-d"));
 
                             <div class="tab-pane fade" id="t6">
                                 <table id="dt-6" class="table table-bordered datatable dataTable" width="100%" cellspacing="0"><thead><tr><th>TRNREFNO NO</th><th>City</th><th>State</th><th>Filename</th><th>Date</th><th>City Reason</th><th>State Reason</th></tr></thead></table>
+                            </div>
+                            <div class="tab-pane fade" id="t7">
+                                <table id="dt-7" class="table table-bordered datatable dataTable" width="100%" cellspacing="0"><thead><tr><th>APPLNO</th><th>TRNREFNO</th><th>EXIST. CUST.</th><th>CUST. ID</th><th>EXIST. JH1</th><th>JH1. ID</th><th>EXIST. JH2</th><th>JH2. ID</th><th>START DATE</th><th>UPLOAD DATE</th></tr></thead></table>
                             </div>
 
                         </div>

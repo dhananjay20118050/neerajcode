@@ -38,6 +38,8 @@ function selTab(tab){
         setDT1();
     }else if(tab=="#t6"){
         setDT6();
+    }else if(tab=="#t7"){
+        setDT7();
     }else{
         setDT5();
     }
@@ -256,6 +258,12 @@ function afterDT6(){
     });
 }
 
+function afterDT7(){
+    $("#date-filter").change(function(){
+        setDT7();
+    });
+}
+
 function setDT3(){
 
      var date = $("#date-filter").val();
@@ -351,6 +359,90 @@ function setDT6(){
         },
         drawCallback: function( settings ) {
             afterDT6();
+        },
+        language: { "lengthMenu": "Show _MENU_" },
+        columnDefs: [
+            { "searchable": false, "targets": [] }, { "searchable": true, "targets": [0,1,2,3,4,5,6] }
+        ]
+
+    } );
+
+}
+
+function setDT7(){
+    
+     var date = $("#date-filters").val();
+    if(date == undefined){
+        /* set date for complete tab */
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        date = yyyy+'-'+mm+'-'+dd;
+    }
+
+    $("#dt-7").DataTable( {
+        processing: true,
+        serverSide: true,
+        destroy: true,
+        paging: false,
+        order : [[ 1, "desc" ]],
+        search: { "caseInsensitive": false },
+        ajax: { "url" : "include/datatable/dt-7.php" },
+        columns: [
+                    { data: "appno" },
+                    { data: "TRNREFNO" },
+                    {   
+                        mRender: function ( file_name, type, data ) {
+                            if(data['is_existing_cust_1'] == 1){
+                                return 'YES';
+                            }else{
+                                return 'NO';
+                            }
+                        }
+                    },
+                    { data: "cifid_1" },
+                    {   
+                        mRender: function ( file_name, type, data ) {
+                            if(data['is_existing_cust_2'] == 1){
+                                return 'YES';
+                            }else{
+                                return 'NO';
+                            }
+                        }
+                    },
+                    { data: "cifid_2" },
+                    {   
+                        mRender: function ( file_name, type, data ) {
+                            if(data['is_existing_cust_3'] == 1){
+                                return 'YES';
+                            }else{
+                                return 'NO';
+                            }
+                        }
+                    },
+                    { data: "cifid_3" },
+                    { data: "start_time" },
+                    //{ data: "end_time" },
+                    { data: "upload_datetime" }
+                ],
+        dom: '<"toolbar"lB<"#filters7">f>rt<"bottom"ip><"clear">',
+        buttons: ['csv'],
+        lengthMenu: [[5, 10, 15, 20, 25, 50, 100, -1], [5, 10, 15, 20, 25, 50, 100, "All"]],
+        pageLength: 10,
+        scrollX: true,
+        scrollY: "400px",
+        scrollCollapse: true,
+        initComplete: function () {
+            $('.buttons-csv').html('<span class="glyphicon glyphicon-download-alt" data-toggle="tooltip" title="Download"/>');
+            $("#filters7").html('<div class="form-group"><input type="date" id="date-filters" class="form-control"></div>');
+            afterDT7();
+            if(date != ""){
+                $("#date-filters").val(date);
+            }
+        },
+        drawCallback: function( settings ) {
+            afterDT7();
         },
         language: { "lengthMenu": "Show _MENU_" },
         columnDefs: [
